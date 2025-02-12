@@ -1,9 +1,9 @@
 //here we created a separate js file (back-end). We will use this in html file (frontend) by using fetch() 
 const express = require("express");
 const app = express();
-const cors = require("cors"); 
+const cors = require("cors"); // Import CORS package
 const port = 3000;
-app.use(cors());
+app.use(cors()); // Enable CORS for all routes
 
 app.get("/sum", (req, res) => {
     //retrive the data and convert 'a & b'to an integer
