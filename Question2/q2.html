@@ -7,19 +7,25 @@
     <script>
 
         function findInterest(){
-            const i = document.getElementById("interest").value;
+            const p = document.getElementById("principal").value;
             const r = document.getElementById("rate").value;
             const t = document.getElementById("time").value;
-            
+            const element = document.getElementById("finalinterest");
+            fetch(`http://localhost:5000/interest?principal=${p}&rate=${r}&time=${t}`)
+            .then(response => response.text()) // Convert response to text
+                .then(data => {
+                    element.innerHTML = "Interest: " + data; // Display result
+                })
         }
 
     </script>
 </head>
 <body>
-    <input id="interest" type="text" placeholder="enter interest"> <br><br>
+    <input id="principal" type="text" placeholder="enter principal"> <br><br>
     <input id="rate" type="text" placeholder="enter rate"> <br><br>
     <input id="time" type="text" placeholder="enter time"> <br><br>
 
     <button onclick="findInterest()">Calculate Interest</button>
+    <div id="finalinterest"></div>
 </body>
 </html>

@@ -13,12 +13,10 @@
             const element = document.getElementById("finalsum");
             // element.innerHTML = parseInt(a) + parseInt(b);
             fetch(`http://localhost:3000/sum?a=${a}&b=${b}`)
-            .then(function(response){
-                console.log(response);
-            })
-            .then(function(data){
-                element.innerHTML = "sum: " + data;
-            })
+            .then(response => response.text()) // Convert response to text
+                .then(data => {
+                    element.innerHTML = "Sum: " + data; // Display result
+                })
         }
 
     </script>
