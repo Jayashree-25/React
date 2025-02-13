@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+    //debouncing is needed to minimize the number of backend request
+        //delay the call to populateDiv untill i've not called for 1000ms
+        let timeout;
+        function debouncePopulateDiv() {
+            //cancel clock using clearTimeOut
+            clearTimeout(timeout);
+            timeout = setTimeout(function () {
+                populateDiv()
+            }, 1000);
+        }
+
+        function populateDiv() {
+            const a = document.getElementById("first").value; //it gets the internal value in String
+            const b = document.getElementById("second").value;
+            const element = document.getElementById("finalsum");
+            // element.innerHTML = parseInt(a) + parseInt(b);
+            fetch(`http://localhost:3000/sum?a=${a}&b=${b}`)
+                .then(response => response.text()) // Convert response to text
+                .then(data => {
+                    element.innerHTML = "Sum: " + data; // Display result
+                })
+        }
+
+    </script>
+</head>
+
+<body>
+    <input oninput="debouncePopulateDiv()" id="first" type="text" placeholder="first number"> <br> <br>
+    <input oninput="debouncePopulateDiv()" id="second" type="text" placeholder="second number"> <br> <br>
+    <div id="finalsum"></div>
+</body>
+
+</html>
