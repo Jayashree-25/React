@@ -6,34 +6,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script>
-        let globalId = 1;
+        let globalId = 1; //assign unique IDs to each to-do item dynamically
 
+//Purpose: Updates the to-do item’s button text to "Done!" when clicked
         function markAsDone(todoId) {
             const parent = document.getElementById(todoId);
-            parent.children[2].innerHTML = "Done!"
+            parent.children[2].innerHTML = "Done!" //Selects the button inside the to-do item & changes the button text to "Done!"
         }
+
+//Purpose: Creates a new to-do item (a div with title, description, and a button).
         function createChild(title, description, id) {
-            const child = document.createElement("div");
+            const child = document.createElement("div"); //creates a div
             const firstGrandParent = document.createElement("div");
             firstGrandParent.innerHTML = title;
             const secondGrandParent = document.createElement("div");
             secondGrandParent.innerHTML = description;
             const thirdGrandParent = document.createElement("button");
             thirdGrandParent.innerHTML = "Mark as done";
-            thirdGrandParent.setAttribute("onclick", `markAsDone(${id})`);
+            thirdGrandParent.setAttribute("onclick", `markAsDone(${id})`); //which calls markAsDone(id) when clicked.
             child.appendChild(firstGrandParent);
             child.appendChild(secondGrandParent);
             child.appendChild(thirdGrandParent);
-            child.setAttribute("id", id);
+            child.setAttribute("id", id); //item is assigned a unique id
             return child;
         }
 
+//Purpose: Adds a new to-do item to the page when the "Add to-do" button is clicked
         function addTodo() {
             const title = document.getElementById("title").value;
             const description = document.getElementById("description").value;
-            const parent = document.getElementById("todos");
+            const parent = document.getElementById("container");
+
+        //calls createChild(title, description, globalId++) to generate a new item and appends it to the container
             parent.appendChild(createChild(title, description, globalId++));
         }
+
     </script>
 </head>
 
@@ -42,6 +49,8 @@
         <input id="title" type="text" placeholder="title"> <br>
         <input id="description" type="text" placeholder="description"> <br> <br>
         <button onclick="addTodo()">Add to-do</button>
+
+        <div id="container"></div>
     </div>
 </body>
 
